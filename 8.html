@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>=^.^=</title>
+<style>
+body {
+	background:
+		linear-gradient( 45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75% ) 0 0 / 40px 40px,
+		linear-gradient( 45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75% ) 20px 20px / 40px 40px;
+}
+
+@keyframes safari-force-repaint {
+  0%, 100% {opacity: 1;}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+<filter id="outline" x="-50%" y="-50%" width="200%" height="200%">
+	<!-- アルファチャンネルを4px拡大し、紫色で塗りつぶし、元入力と合成する -->
+	<feMorphology in="SourceAlpha" operator="dilate" radius="4" />
+	<feColorMatrix type="matrix" values="
+		1 0 0 0 0.443
+		0 1 0 0 0.196
+		0 0 1 0 0.792
+		0 0 0 1 0"/>
+	<feMerge>
+		<feMergeNode/>
+		<feMergeNode in="SourceGraphic"/>
+	</feMerge>
+</filter>
+</svg>
+
+<p style="filter: url(#outline);">
+	SVG Filterを使うと、アルファ付き画像にも枠線を付けられます
+</p>
+
+<div>
+	filterなし
+	<img src="flying.webp" alt="" />
+</div>
+<div style="filter: url(#outline); animation: safari-force-repaint 1s infinite;">
+	filterあり
+	<img src="flying.webp" alt="" />
+</div>
+
+</body>
+</html>
