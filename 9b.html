@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>=^.^=</title>
+<style>
+body {
+	background: url( "./kodim23.png" );
+}
+@keyframes safari-force-repaint {
+  0%, 100% {opacity: 1;}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+<filter id="outline" x="-50%" y="-50%" width="200%" height="200%">
+	<!-- 外側の黒アウトライン（8px拡大） -->
+	<feMorphology in="SourceAlpha" operator="dilate" radius="8" result="outer-dilated" />
+	<feColorMatrix in="outer-dilated" type="matrix" values="
+		1 0 0 0 0
+		0 1 0 0 0
+		0 0 1 0 0
+		0 0 0 1 0" result="outer-outline"/>
+	<!-- 内側の白のアウトライン（4px拡大） -->
+	<feMorphology in="SourceAlpha" operator="dilate" radius="4" result="inner-dilated" />
+	<feColorMatrix in="inner-dilated" type="matrix" values="
+		1 0 0 0 1
+		0 1 0 0 1
+		0 0 1 0 1
+		0 0 0 1 0" result="inner-outline"/>
+	<!-- 3つのレイヤーを合成: 白 → 紫 → 元画像 -->
+	<feMerge>
+		<feMergeNode in="outer-outline"/>
+		<feMergeNode in="inner-outline"/>
+		<feMergeNode in="SourceGraphic"/>
+	</feMerge>
+</filter>
+</svg>
+
+<p style="
+	font-family: sans-serif;
+	font-size: 64px;
+	color: #ff0000;
+	filter: url(#outline);
+	animation: safari-force-repaint 1s infinite;
+">
+	あいうえお
+</p>
+
+</body>
+</html>
